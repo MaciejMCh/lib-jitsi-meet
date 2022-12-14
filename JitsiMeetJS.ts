@@ -37,7 +37,7 @@ import * as ConnectionQualityEvents
 import * as E2ePingEvents from './service/e2eping/E2ePingEvents';
 import { createGetUserMediaEvent } from './service/statistics/AnalyticsEvents';
 
-const logger = Logger.getLogger(__filename);
+const logger = Logger.getLogger('jitsi__filename');
 
 /**
  * The amount of time to wait until firing
@@ -142,26 +142,6 @@ export default {
         // FIXME do not use 'window'
         if (!window.connectionTimes) {
             window.connectionTimes = {};
-        }
-
-        if (options.enableAnalyticsLogging !== true) {
-            logger.warn('Analytics disabled, disposing.');
-            this.analytics.dispose();
-        }
-
-        if (options.enableWindowOnErrorHandler) {
-            GlobalOnErrorHandler.addHandler(
-                this.getGlobalOnErrorHandler.bind(this));
-        }
-
-        if (this.version) {
-            const logObject = {
-                id: 'component_version',
-                component: 'lib-jitsi-meet',
-                version: this.version
-            };
-
-            Statistics.sendLog(JSON.stringify(logObject));
         }
 
         return RTC.init(options);
